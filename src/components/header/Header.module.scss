@@ -13,7 +13,8 @@ header {
     margin: 0 auto;
     padding: 1rem;
     display: flex;
-    //header içindeki const logo ve <nav> ı ayırıyor
+
+    //separates const logo and <nav> in the header
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -21,7 +22,7 @@ header {
 
   .logo a h2 {
     width: 25%;
-    color: #fff;
+    color: #aaa;
     cursor: pointer;
     span {
       color: orangered;
