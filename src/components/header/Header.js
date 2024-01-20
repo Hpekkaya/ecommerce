@@ -34,8 +34,12 @@ const Header = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
           </ul>
-          <div>
-            
+          <div className={styles["header-right"]}>
+            <span className={styles.links}>
+              <Link to="/login">Login</Link>
+              <Link to="/order-history">My Orders</Link>
+            </span>
+            {cart}
           </div>
         </nav>
       </div>
