@@ -215,6 +215,7 @@ header {
     }
     .menu-icon {
       display: flex;
+      // All the children blow menu-icon
       > * {
         margin-left: 2rem;
       }

@@ -1,12 +1,19 @@
 // Header section with all links
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "./Header.module.scss"
 import { Link } from 'react-router-dom'
 import { FaShoppingCart } from "react-icons/fa"
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 const Header = () => {
-
+  //  Show-Hide Menu on left 
+  const [showMenu, setShowMenu] = useState(false)
+  const toggleMenu = ()=> {
+    setShowMenu(!showMenu)
+  }
+  const hideMenu =()=> {
+    setShowMenu(false)
+  }
   const logo = (
     <div className={styles.logo}>
       <Link to="/">
@@ -30,7 +37,12 @@ const Header = () => {
     <header>
       <div className={styles.header}>
         {logo}
-        <nav>
+        <nav className={showMenu ? `${styles["show-nav"]}` :` ${styles["hide-nav"]}`}>
+
+          {/* According to show menu */}
+          <div className={showMenu ? `${styles["nav-wrapper"]}${styles["show-nav-wrapper"]}` : `${styles["nav-wrapper"]}`} onClick={hideMenu}>
+
+          </div>
           <ul>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
@@ -46,7 +58,7 @@ const Header = () => {
         {/* Hamburger Menu */}
         <div className={styles["menu-icon"]}>
           {cart}
-          <HiOutlineMenuAlt3 size={27}/>
+          <HiOutlineMenuAlt3 size={27} onClick={toggleMenu}/>
         </div>
       </div>
     </header>
