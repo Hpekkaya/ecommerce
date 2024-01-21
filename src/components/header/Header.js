@@ -3,7 +3,7 @@ import React from 'react'
 import styles from "./Header.module.scss"
 import { Link } from 'react-router-dom'
 import { FaShoppingCart } from "react-icons/fa"
-
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 const Header = () => {
 
@@ -19,6 +19,7 @@ const Header = () => {
   const cart = (
     <span className={styles.cart}>
       <Link to="/cart">
+        Cart
         <FaShoppingCart size={20}/>
         <p>0</p>
       </Link>
@@ -42,6 +43,11 @@ const Header = () => {
             {cart}
           </div>
         </nav>
+        {/* Hamburger Menu */}
+        <div className={styles["menu-icon"]}>
+          {cart}
+          <HiOutlineMenuAlt3 size={27}/>
+        </div>
       </div>
     </header>
   )
