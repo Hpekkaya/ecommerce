@@ -115,11 +115,11 @@ header {
       padding: 1rem;
       z-index: 999;
       //nav içindekiler ekranın hemen sol dışında
-      transform: translateX(-200%);
+      transform: translateX(-150%);
       //kenara atma işleminin gecikme süresi all (width,height)
       transition: all 0.3s;
 
-      .nav-wrapper {
+      .nav-wrapper {  //2.05 teanlatıyor (14hf-3)
         //nav anchor olduğundan %50 ekran genişliğinde bir siyah alan solda gizlenmek üzere nav üzerinde koyuluyor
         position: absolute;
         top: 0;
