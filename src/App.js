@@ -9,10 +9,11 @@ import Contact from './pages/contact/Contact'
 const App = () => {
   return (
     <>
+      {/* Creating Main page Browser and route */}
       <BrowserRouter>
         <Header/>
         <Routes>
-          <Route path='/' element={<Home/>}/>
+
           <Route path='/contact' element={<Contact/>}/>
         </Routes>
         <Footer/>
