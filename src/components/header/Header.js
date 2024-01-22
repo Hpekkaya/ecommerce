@@ -39,7 +39,7 @@ const Header = () => {
         {logo}
         <nav className={showMenu ? `${styles["show-nav"]}` :` ${styles["hide-nav"]}`}>
 
-          {/* According to show menu */}
+          {/* According to show menu (Canopy) */}
           <div className={showMenu ? `${styles["nav-wrapper"]}${styles["show-nav-wrapper"]}` : `${styles["nav-wrapper"]}`} onClick={hideMenu}>
 
           </div>
