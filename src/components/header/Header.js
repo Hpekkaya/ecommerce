@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import styles from "./Header.module.scss"
 import { Link } from 'react-router-dom'
-import { FaShoppingCart } from "react-icons/fa"
+import { FaShoppingCart, FaTimes } from "react-icons/fa"
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 const Header = () => {
@@ -39,15 +39,20 @@ const Header = () => {
         {logo}
         <nav className={showMenu ? `${styles["show-nav"]}` :` ${styles["hide-nav"]}`}>
 
-          {/* According to show menu (Canopy) */}
+          {/* According to show menu (Canopy ) */}
           <div className={showMenu ? `${styles["nav-wrapper"]}${styles["show-nav-wrapper"]}` : `${styles["nav-wrapper"]}`} onClick={hideMenu}>
-
           </div>
-          <ul>
+
+          {/* Logo and close button added to the toggle menu */}
+          <ul onClick={hideMenu}>
+            <li className={styles["logo-mobile"]}>
+              {logo}
+              <FaTimes size={22} color="#fff" onClick={hideMenu}/>
+            </li>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>
           </ul>
-          <div className={styles["header-right"]}>
+          <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
               <Link to="/login">Login</Link>
               <Link to="/order-history">My Orders</Link>
