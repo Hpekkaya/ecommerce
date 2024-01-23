@@ -60,7 +60,7 @@ const Header = () => {
             {cart}
           </div>
         </nav>
-        {/* Hamburger Menu */}
+        {/* Hamburger/Toggle Menu */}
         <div className={styles["menu-icon"]}>
           {cart}
           <HiOutlineMenuAlt3 size={27} onClick={toggleMenu}/>
