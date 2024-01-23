@@ -45,7 +45,7 @@ const Header = () => {
 
           {/* Logo and close button added to the toggle menu */}
           <ul onClick={hideMenu}>
-            <li className={styles["logo-mobile"]}>
+          <li className={styles["logo-mobile"]}>
               {logo}
               <FaTimes size={22} color="#fff" onClick={hideMenu}/>
             </li>
