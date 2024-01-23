@@ -6,6 +6,7 @@ import { FaShoppingCart, FaTimes } from "react-icons/fa"
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 
 const Header = () => {
+
   //  Show-Hide Menu on left 
   const [showMenu, setShowMenu] = useState(false)
   const toggleMenu = ()=> {
@@ -14,6 +15,7 @@ const Header = () => {
   const hideMenu =()=> {
     setShowMenu(false)
   }
+
   const logo = (
     <div className={styles.logo}>
       <Link to="/">
@@ -37,6 +39,7 @@ const Header = () => {
     <header>
       <div className={styles.header}>
         {logo}
+        {/* Listen showMenu show/hide menu */}
         <nav className={showMenu ? `${styles["show-nav"]}` :` ${styles["hide-nav"]}`}>
 
           {/* According to show menu (Canopy ) */}
