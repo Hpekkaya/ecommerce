@@ -115,7 +115,7 @@ header {
       padding: 1rem;
       z-index: 999;
       //nav içindekiler ekranın hemen sol dışında
-      transform: translateX(-150%);
+      transform: translateX();
       //kenara atma işleminin gecikme süresi all (width,height)
       transition: all 0.3s;
 
@@ -132,6 +132,7 @@ header {
         transform: translateX();
         transition: all 0.3s;
       }
+
 
       .show-nav-wrapper {
         //nav gösterildiğinde (show-nav) , siyah alan kendisi kadar daha fazla kayarak sol tarafı dolduruyor
