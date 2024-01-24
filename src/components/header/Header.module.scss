@@ -129,7 +129,7 @@ header {
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.5);
         //translate anchorda nasılsa öyle kabul ediliyor. 
-        transform: translateX(%);
+        transform: translateX();
         transition: all 0.3s;
       }
 
