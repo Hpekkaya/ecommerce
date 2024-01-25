@@ -1,10 +1,33 @@
 ////şifre resetleme sayfası
 import React from 'react'
+import styles from "./auth.module.scss"
+import resetImg from "../../assets/forgot.png"
+import Card from '../../components/card/Card'
+import { Link } from 'react-router-dom'
 
 const Reset = () => {
   return (
-    <div>Reset</div>
-  )
+<section className={`container ${styles.auth}`}>
+        <div className={styles.img}>
+          <img src={resetImg} alt="resetImg" width="400"/>
+        </div>        
+      <Card cardClass ={styles.form}>
+        <h2>Register</h2>
+        <form>
+          <input type="text" placeholder="eMail" required/>
+          <button className='--btn --btn-primary --btn-block'>Reset Password</button>
+          <div className={styles.links}>
+            <p>
+              <Link to="/login">-Login</Link>
+            </p>
+            <p>
+              <Link to="/register">-Register</Link>
+            </p>
+          </div>
+        </form>   
+      </Card>
+
+    </section>  )
 }
 
 export default Reset
