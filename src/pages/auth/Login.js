@@ -1,4 +1,5 @@
 // Login Page for registered users
+
 import React from 'react'
 import styles from "./auth.module.scss"
 import loginImg from "../../assets/login.png"

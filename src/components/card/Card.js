@@ -1,4 +1,7 @@
-// oluşturulan tüm cardlar için kullanılan en dış div ve className belirleme olayını tekrarlamamak adına yazılan bir component
+
+// Used for all cards created
+// A component written to avoid repeating the outermost div and className determination.
+
 import React from 'react'
 import styles from "./Card.module.scss"
 
