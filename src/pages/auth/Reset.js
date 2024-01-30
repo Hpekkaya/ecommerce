@@ -12,7 +12,7 @@ const Reset = () => {
           <img src={resetImg} alt="resetImg" width="400"/>
         </div>        
       <Card cardClass ={styles.form}>
-        <h2>Register</h2>
+        <h2>Reset</h2>
         <form>
           <input type="text" placeholder="eMail" required/>
           <button className='--btn --btn-primary --btn-block'>Reset Password</button>
