@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./auth.module.scss";
 import registerImg from "../../assets/register.png";
 import Card from "../../components/card/Card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config";
@@ -14,10 +14,13 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
 
+  const navigate = useNavigate
+
   const registerUser = (e) => {
     e.preventDefault();
-    // console.log(email,password ,cPassword)
+    console.log(email,password ,cPassword)
     // console.log(e)
+
 
     if (password !== cPassword) {
       toast.error("Password does not match");
@@ -27,12 +30,13 @@ const Register = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user)
+          // console.log(user)
+          toast.success("Registration succesfull...")
+          navigate("/login")
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // ..
+          toast.error(error.message);
+          
         });
     }
   };
