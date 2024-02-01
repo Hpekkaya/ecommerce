@@ -1,10 +1,10 @@
 // Header section with all links
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./Header.module.scss"
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { FaShoppingCart, FaTimes } from "react-icons/fa"
+import { FaShoppingCart, FaTimes, FaUserCircle } from "react-icons/fa"
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
 
@@ -13,8 +13,26 @@ const Header = () => {
 
   //  Show-Hide Menu on left 
   const [showMenu, setShowMenu] = useState(false)
+  
+  const [displayName, setDisplayName] = useState("")
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, 
+        
+        const uid = user.uid;
+        // console.log(user)
+        setDisplayName(user.displayName)
+      } else {
+        // User is signed out
+        setDisplayName("")
+         
+      }
+    });
+  }, []);
 
   const toggleMenu = ()=> {
     setShowMenu(!showMenu)
@@ -78,6 +96,10 @@ const Header = () => {
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
               <NavLink to="/login" className={activeLink}>Login</NavLink>
+              <a href="#home" style={{color:"#ff7722"}}>
+                <FaUserCircle size={16}/>&nbsp;
+                Wellcome {displayName}
+              </a>   
               <NavLink to="/order-history" className={activeLink}>My Orders</NavLink>
               <NavLink to="/" onClick={logoutUser}>Logout</NavLink>
             </span>
