@@ -96,7 +96,7 @@ const Header = () => {
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
               <NavLink to="/login" className={activeLink}>Login</NavLink>
-              <a href="#home" style={{color:"#ff7722"}}>
+              <a href="#home" style={{color:"#ff7722", fontSize:"10px"}}>
                 <FaUserCircle size={16}/>&nbsp;
                 Wellcome {displayName}
               </a>   
