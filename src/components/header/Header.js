@@ -25,11 +25,19 @@ const Header = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, 
-        
-        const uid = user.uid;
-        // console.log(user)
+        if(user.displayName === null) {
+
+          const u1 = user.email.slice(0,user.email.lastIndexOf("@"))
+
+          const uName = u1.charAt(0).toUpperCase() + u1.slice(1)
+
+          setDisplayName(uName)
+        }
+        else {
+          // console.log(user)
         setDisplayName(user.displayName)
-        
+        }
+              
         //logged in user is sent to redux
         dispatch(SET_ACTIVE_USER({
           email :user.email,
@@ -38,8 +46,7 @@ const Header = () => {
         }))
       } else {
         // User is signed out
-        setDisplayName("")
-         
+        setDisplayName("")         
       }
     });
   }, []);
