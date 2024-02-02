@@ -20,8 +20,8 @@ const Reset = () => {
     // alert(email)
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        setIsLoading(false);
         // Password reset email sent!
+        setIsLoading(false);
         toast.success(" Check your email adress for reset link");
       })
       .catch((error) => {
