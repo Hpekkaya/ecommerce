@@ -41,7 +41,7 @@ const Header = () => {
         //logged in user is sent to redux
         dispatch(SET_ACTIVE_USER({
           email :user.email,
-          userName :user.displayName,
+          userName :user.displayName ? user.displayName : displayName,
           userID :user.userID
         }))
       } else {
@@ -49,7 +49,7 @@ const Header = () => {
         setDisplayName("")         
       }
     });
-  }, []);
+  }, [dispatch, displayName]);
 
   const toggleMenu = ()=> {
     setShowMenu(!showMenu)
@@ -113,7 +113,7 @@ const Header = () => {
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
               <NavLink to="/login" className={activeLink}>Login</NavLink>
-              <a href="#home" style={{color:"#ff7722", fontSize:"10px"}}>
+              <a href="#home" style={{color:"#ff7722", fontSize:"12px"}}>
                 <FaUserCircle size={16}/>&nbsp;
                 Wellcome {displayName}
               </a>   

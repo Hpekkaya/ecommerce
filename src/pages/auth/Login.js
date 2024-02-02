@@ -25,10 +25,10 @@ const Login = () => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setIsLoading(false);
         // Signed in
         const user = userCredential.user;
-        toast.success("Login is succesful...");
+        setIsLoading(false);
+        toast.success("Login Successfully...");
         navigate("/");
       })
       .catch((error) => {
