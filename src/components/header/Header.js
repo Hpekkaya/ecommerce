@@ -9,6 +9,7 @@ import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { SET_ACTIVE_USER, REMOVE_ACTIVE_USER  } from '../../redux/slice/authSlice';
+import { ShowOnLogin, ShowOnLogout } from '../hiddenLink/hiddenLink';
 
 
 const Header = () => {
@@ -113,13 +114,18 @@ const Header = () => {
           </ul>
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
-              <NavLink to="/login" className={activeLink}>Login</NavLink>
-              <a href="#home" style={{color:"#ff7722", fontSize:"12px"}}>
+              <ShowOnLogout>
+                 <NavLink to="/login" className={activeLink}>Login</NavLink>
+              </ShowOnLogout>
+              <ShowOnLogin>
+                <a href="#home" style={{color:"#ff7722", fontSize:"12px"}}> 
                 <FaUserCircle size={16}/>&nbsp;
                 Wellcome {displayName}
               </a>   
               <NavLink to="/order-history" className={activeLink}>My Orders</NavLink>
               <NavLink to="/" onClick={logoutUser}>Logout</NavLink>
+              </ShowOnLogin>
+              
             </span>
             {cart}
           </div>
