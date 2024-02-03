@@ -1,12 +1,15 @@
-// Login Page for registered users
-
+//// kayıtlı kullanıcılar için giriş sayfası
 import React, { useState } from "react";
 import styles from "./auth.module.scss";
 import loginImg from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import Card from "../../components/card/Card";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup  } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 import Loader from "../../components/loader/Loader";
@@ -17,15 +20,14 @@ const Login = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const loginUser = (e) => {
     e.preventDefault();
-    // console.log(email, password);
+    // console.log(email,password)
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         setIsLoading(false);
         toast.success("Login Successfully...");
@@ -38,39 +40,30 @@ const Login = () => {
   };
 
   const provider = new GoogleAuthProvider();
-
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        toast.success("Login with Google is succesful..")
+        toast.success("Login successfully...")
         navigate("/")
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // The signed-in user info.
-        // const user = result.user;
-        // IdP data available using getAdditionalUserInfo(result)
       })
       .catch((error) => {
-        // Handle Errors here.
         toast.error(error.message)
       });
   };
 
-
   return (
     <>
-      {isLoading && <Loader/>} 
+      {isLoading && <Loader />}
       <section className={`container ${styles.auth}`}>
         <div className={styles.img}>
-          <img src={loginImg} alt="LoginImage" width="400" />
+          <img src={loginImg} alt="loginImage" width="400" />
         </div>
         <Card cardClass={styles.form}>
           <h2>Login</h2>
           <form onSubmit={loginUser}>
             <input
               type="text"
-              placeholder="eMail"
+              placeholder="Email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -82,19 +75,21 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button  type="submit" className="--btn --btn-primary --btn-block">Login</button>
+            <button type="submit" className="--btn --btn-primary --btn-block">
+              Login
+            </button>
             <div className={styles.links}>
               <Link to="/reset">Reset Password</Link>
             </div>
             <p>-- or --</p>
           </form>
           <button className="--btn --btn-danger --btn-block" onClick={signInWithGoogle}>
-            <FaGoogle color="#ffff" />
-            &nbsp; Login with Google
+            <FaGoogle color="#fff" />
+            &nbsp;Login With Google
           </button>
           <span className={styles.register}>
-            <p>Don't have an account? </p>
-            <Link to="/register">&nbsp;Register</Link>
+            <p>Don't have an account ?</p>&nbsp;
+            <Link to="/register">Register</Link>
           </span>
         </Card>
       </section>
