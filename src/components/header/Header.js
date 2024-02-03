@@ -8,7 +8,7 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../firebase/config';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { SET_ACTIVE_USER } from '../../redux/slice/authSlice';
+import { SET_ACTIVE_USER, REMOVE_ACTIVE_USER  } from '../../redux/slice/authSlice';
 
 
 const Header = () => {
@@ -46,7 +46,8 @@ const Header = () => {
         }))
       } else {
         // User is signed out
-        setDisplayName("")         
+        setDisplayName("") 
+        dispatch()        
       }
     });
   }, [dispatch, displayName]);
