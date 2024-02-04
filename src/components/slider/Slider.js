@@ -1,15 +1,19 @@
 //// home sayfasındaki slider i yapacağımız yer
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import "./Slider.scss"
 import {AiOutlineArrowLeft, AiOutlineArrowRight} from "react-icons/ai"
 import { sliderData } from './slider-data'
-import { Slide } from 'react-toastify'
+
 
 
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slideLength = sliderData.length;
+
+  const autoScroll = true;
+
+  let intervalTime = 5000
 
   const nextSlide = () => {
     setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1);
@@ -19,6 +23,21 @@ const Slider = () => {
     setCurrentSlide(currentSlide === 0 ? slideLength - 1 : currentSlide - 1);
   };
 
+  useEffect(()=> {
+    setCurrentSlide(0)
+  },[])
+
+  useEffect(()=> {
+    let slideInterval;
+    if(autoScroll){
+      slideInterval = setInterval(()=>{
+        setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1)
+      },intervalTime)
+    }
+    return () => clearInterval(slideInterval)
+
+  },[autoScroll,intervalTime,currentSlide,slideLength])
+  
   return (
     <div className="slider">
       <AiOutlineArrowLeft className="arrow prev" onClick={prevSlide}/>
