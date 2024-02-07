@@ -1,4 +1,4 @@
-// Header section with all links
+//// tüm linklerin olduğu başlık kısmı
 import React, { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -9,14 +9,13 @@ import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import {
-  SET_ACTIVE_USER,
   REMOVE_ACTIVE_USER,
+  SET_ACTIVE_USER,
 } from "../../redux/slice/authSlice";
 import { ShowOnLogin, ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { AdminOnlyLink } from "../adminOnlyRoute/AdminOnlyRoute";
 
 const Header = () => {
-  //  Show-Hide Menu on left
   const [showMenu, setShowMenu] = useState(false);
 
   const [displayName, setDisplayName] = useState("");
@@ -27,7 +26,6 @@ const Header = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in,
         if (user.displayName === null) {
           const u1 = user.email.slice(0, user.email.lastIndexOf("@"));
 
@@ -39,18 +37,17 @@ const Header = () => {
           setDisplayName(user.displayName);
         }
 
-        //logged in user is sent to redux
+        //giriş yapan kullanıcı reduxa gönderiliyor
         dispatch(
           SET_ACTIVE_USER({
             email: user.email,
             userName: user.displayName ? user.displayName : displayName,
-            userID: user.userID,
+            userID: user.uid,
           })
         );
       } else {
-        // User is signed out
         setDisplayName("");
-        dispatch();
+        dispatch(REMOVE_ACTIVE_USER());
       }
     });
   }, [dispatch, displayName]);
@@ -58,6 +55,7 @@ const Header = () => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
   const hideMenu = () => {
     setShowMenu(false);
   };
@@ -65,7 +63,7 @@ const Header = () => {
   const logoutUser = () => {
     signOut(auth)
       .then(() => {
-        toast.success("Logout is succesful..");
+        toast.success("Logout successfull...");
         navigate("/");
       })
       .catch((error) => {
@@ -82,6 +80,7 @@ const Header = () => {
       </Link>
     </div>
   );
+
   const cart = (
     <span className={styles.cart}>
       <Link to="/cart">
@@ -97,13 +96,12 @@ const Header = () => {
     <header>
       <div className={styles.header}>
         {logo}
-        {/* Listen showMenu show/hide menu */}
         <nav
           className={
-            showMenu ? `${styles["show-nav"]}` : ` ${styles["hide-nav"]}`
+            showMenu ? `${styles["show-nav"]}` : `${styles["hide-nav"]}`
           }
         >
-          {/* According to show menu (Canopy ) */}
+          {/* gölge yeri nav kısmı */}
           <div
             className={
               showMenu
@@ -113,18 +111,17 @@ const Header = () => {
             onClick={hideMenu}
           ></div>
 
-          {/* Logo and close button added to the toggle menu */}
           <ul onClick={hideMenu}>
             <li className={styles["logo-mobile"]}>
               {logo}
               <FaTimes size={22} color="#fff" onClick={hideMenu} />
             </li>
             <AdminOnlyLink>
-              <link to="/admin/home">
+              <Link to="/admin/home">
                 <li>
                   <button className="--btn --btn-primary">Admin</button>
                 </li>
-              </link>
+              </Link>
             </AdminOnlyLink>
             <li>
               <NavLink to="/" className={activeLink}>
@@ -132,7 +129,7 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/contact" className={activeLink}>
+              <NavLink className={activeLink} to="/contact">
                 Contact Us
               </NavLink>
             </li>
@@ -140,16 +137,16 @@ const Header = () => {
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
               <ShowOnLogout>
-                <NavLink to="/login" className={activeLink}>
+                <NavLink className={activeLink} to="/login">
                   Login
                 </NavLink>
               </ShowOnLogout>
               <ShowOnLogin>
-                <a href="#home" style={{ color: "#ff7722", fontSize: "12px" }}>
+                <a href="#home" style={{ color: "#ff7722" }}>
                   <FaUserCircle size={16} />
-                  &nbsp; Wellcome {displayName}
+                  &nbsp; Hi, {displayName}
                 </a>
-                <NavLink to="/order-history" className={activeLink}>
+                <NavLink className={activeLink} to="/order-history">
                   My Orders
                 </NavLink>
                 <NavLink to="/" onClick={logoutUser}>
@@ -160,10 +157,9 @@ const Header = () => {
             {cart}
           </div>
         </nav>
-        {/* Hamburger/Toggle Menu */}
         <div className={styles["menu-icon"]}>
           {cart}
-          <HiOutlineMenuAlt3 size={27} onClick={toggleMenu} />
+          <HiOutlineMenuAlt3 size={28} onClick={toggleMenu} />
         </div>
       </div>
     </header>
