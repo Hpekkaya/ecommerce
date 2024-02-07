@@ -1,5 +1,7 @@
-//// admin panelindeki add product componenti
+// admin panelindeki add product componenti
 import React from 'react'
+import styles from "./AddProduct.module.scss"
+
 
 const AddProduct = () => {
   return (
