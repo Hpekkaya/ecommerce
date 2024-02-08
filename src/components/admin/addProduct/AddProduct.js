@@ -7,6 +7,7 @@ import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import Loader from '../../loader/Loader';
+import { useNavigate } from 'react-router-dom';
 
 
 const categories = [
@@ -18,15 +19,20 @@ const categories = [
 
 // 
 const AddProduct = () => {
-  
+  const initialState = {
+    name: "",
+    imageURL: "",
+    price: 0,
+    category: "",
+    brand: "",
+    desc: "",
+  }
   const [product, setProduct] = useState({
-    name :"",
-    imageURL :"",
-    price :"",
-    category :"",
-    brand :"",
-    desc :""
-  })
+    ...initialState
+  });
+  
+  const navigate = useNavigate()
+
 
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
@@ -81,10 +87,7 @@ const AddProduct = () => {
       });
       setIsLoading(false);
       toast.success("Product is Uploaded Succesfully")
-      setUploadProgress(0)
-      setProduct({...initialState})
-      toast.success("Product uploaded successfully");
-      navigate("/admin/all-products")
+      
       
     } catch (error) {
       setIsLoading(false);
