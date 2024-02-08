@@ -6,6 +6,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import Loader from '../../loader/Loader';
 
 
 const categories = [
@@ -78,14 +79,23 @@ const AddProduct = () => {
         desc: product.desc,
         createdAt: Timestamp.now().toDate(),
       });
+      setIsLoading(false);
+      toast.success("Product is Uploaded Succesfully")
+      setUploadProgress(0)
+      setProduct({...initialState})
+      toast.success("Product uploaded successfully");
+      navigate("/admin/all-products")
       
     } catch (error) {
-      
+      setIsLoading(false);
+      toast.error(error.message)
     }
   };
 
   return (
-    <div className={styles.product}>
+    <>
+      {isLoading && <Loader/>}
+      <div className={styles.product}>
       <h2>Add New Product</h2>
       <Card cardClass={styles.card}>
         <form onSubmit={addProduct}>
@@ -182,6 +192,8 @@ const AddProduct = () => {
         </form>
       </Card>
     </div>
+    </>
+    
   );
 }
 
