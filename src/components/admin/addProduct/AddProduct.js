@@ -118,6 +118,7 @@ const AddProduct = () => {
               cols="30"
               rows="10"
             ></textarea>
+            <button className="--btn --btn-primary">Save Product</button>
         </form>
       </Card>
     </div>
