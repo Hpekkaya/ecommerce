@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import styles from "./AddProduct.module.scss"
 import Card from "../../card/Card";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from '../../../firebase/config';
 
 
 const categories = [
@@ -23,6 +25,8 @@ const AddProduct = () => {
     desc :""
   })
 
+  const [uploadProgress, setUploadProgress] = useState(0)
+
    // Formun içindeki Dosyaları anlık olarak alıp UseState içindeki değerlere kaydededen
    //  Bu state alıp veri tabanına kaydedeceğiz
   const handleInputChange = (e) => {
@@ -31,14 +35,43 @@ const AddProduct = () => {
   };
 
   const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    // console.log(file)
+    const storageRef = ref(storage, `eshop/${Date.now()}${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // console.log("Upload is " + progress + "% done");
+        setUploadProgress(progress);
+      },
+      (error) => {
+        toast.error(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          // console.log("File available at", downloadURL);
+          setProduct({ ...product, imageURL: downloadURL });
+          toast.success("Image uploaded successfully");
+        });
+      }
+    );
   }
+
+  const addProduct = (e) => {
+    e.preventDefault();
+    // console.log(product);
+    // setIsLoading(true);
+  };
 
   return (
     <div className={styles.product}>
       <h2>Add New Product</h2>
       <Card cardClass={styles.card}>
-        <form>
+        <form onSubmit={addProduct}>
           <label>Product name:</label>
           <input
             type="text"
