@@ -4,6 +4,7 @@ import styles from "./AddProduct.module.scss"
 import Card from "../../card/Card";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from '../../../firebase/config';
+import { toast } from 'react-toastify';
 
 
 const categories = [
@@ -82,12 +83,20 @@ const AddProduct = () => {
             onChange={(e) => handleInputChange(e)}
           />
           <label>Product image:</label>
+
           <Card cardClass={styles.group}>
-            <div className={styles.progress}>
-              <div className={styles["progress-bar"]} styles={{ width: "50%" }}>
-                Uploading 50%
+            {uploadProgress === 0 ? null : (
+              <div className={styles.progress}>
+                <div
+                  className={styles["progress-bar"]}
+                  styles={{ width: `${uploadProgress}` }}
+                >
+                  {uploadProgress < 100
+                    ? `Uploading ${uploadProgress}%`
+                    : `Upload Complete ${uploadProgress}%`}
+                </div>
               </div>
-            </div>
+            )}
 
             <input
               type="file"
@@ -96,62 +105,64 @@ const AddProduct = () => {
               name="image"
               onChange={(e) => handleImageChange(e)}
             />
+            {product.imageURL === "" ? null : (
+              <input
+                type="text"
+                required
+                value={product.imageURL}
+                placeholder="Image URL"
+                name="imageURL"
+                disabled
+              />
+            )}
 
-            <input
-              type="text"
-              required
-              value={product.imageURL}
-              placeholder="Image URL"
-              name="imageURL"
-              disabled
-            />
           </Card>
           <label>Product Price :</label>
           <input
-            type='number'
-            placeholder='Product Price'
+            type="number"
+            placeholder="Product Price"
             required
-            name='price'
+            name="price"
             value={product.price}
-            onChange={(e)=>handleInputChange(e)}
-            />
+            onChange={(e) => handleInputChange(e)}
+          />
           <label>Product Category :</label>
           <select
-            placeholder='Select Product Category'
+            placeholder="Select Product Category"
             required
-            name='category'
+            name="category"
             value={product.category}
-            onChange={(e)=>handleInputChange(e)}
+            onChange={(e) => handleInputChange(e)}
           >
             <option value="" disabled>
-                -- Choose Product Category --
-              </option>
-              {categories.map((cat) => {
-                return (
-                  <option key={cat.id} value={cat.name}>
-                    {cat.name}
-                  </option>
-                );
-              })}
-          </select>  
+              -- Choose Product Category --
+            </option>
+            {categories.map((cat) => {
+              return (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
+                </option>
+              );
+            })}
+          </select>
           <label>Product Company/Brand</label>
-            <input
-              type="text"
-              placeholder="Product Brand"
-              required
-              name="brand"
-              value={product.brand}
-              onChange={(e) => handleInputChange(e)}
-            />
-            <label>Product Description</label>
-            <textarea
-              name="desc"
-              value={product.desc}
-              onChange={(e) => handleInputChange(e)}
-              cols="30"
-              rows="10"
-            ></textarea>
-            <button className="--btn --btn-primary">Save Product</button>
+          <input
+            type="text"
+            placeholder="Product Brand"
+            required
+            name="brand"
+            value={product.brand}
+            onChange={(e) => handleInputChange(e)}
+          />
+          <label>Product Description</label>
+          <textarea
+            name="desc"
+            value={product.desc}
+            onChange={(e) => handleInputChange(e)}
+            cols="30"
+            rows="10"
+          ></textarea>
+          <button className="--btn --btn-primary">Save Product</button>
         </form>
       </Card>
     </div>
