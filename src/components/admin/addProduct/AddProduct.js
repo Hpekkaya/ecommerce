@@ -3,8 +3,9 @@ import React, { useState } from 'react'
 import styles from "./AddProduct.module.scss"
 import Card from "../../card/Card";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from '../../../firebase/config';
+import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
 
 
 const categories = [
@@ -16,7 +17,7 @@ const categories = [
 
 // 
 const AddProduct = () => {
-
+  
   const [product, setProduct] = useState({
     name :"",
     imageURL :"",
@@ -27,6 +28,7 @@ const AddProduct = () => {
   })
 
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [isLoading, setIsLoading] = useState(false);
 
    // Formun içindeki Dosyaları anlık olarak alıp UseState içindeki değerlere kaydededen
    //  Bu state alıp veri tabanına kaydedeceğiz
@@ -65,7 +67,21 @@ const AddProduct = () => {
   const addProduct = (e) => {
     e.preventDefault();
     // console.log(product);
-    // setIsLoading(true);
+    setIsLoading(true);
+    try {
+      addDoc(collection(db, "products"), {
+        name: product.name,
+        imageURL: product.imageURL,
+        price: Number(product.price),
+        category: product.category,
+        brand: product.brand,
+        desc: product.desc,
+        createdAt: Timestamp.now().toDate(),
+      });
+      
+    } catch (error) {
+      
+    }
   };
 
   return (
