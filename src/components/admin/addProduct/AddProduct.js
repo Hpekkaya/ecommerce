@@ -73,7 +73,35 @@ const AddProduct = () => {
               disabled
             />
           </Card>
-          
+          <label>Product Price :</label>
+          <input
+            type='number'
+            placeholder='Product Price'
+            required
+            name='price'
+            value={product.price}
+            onChange={(e)=>handleInputChange(e)}
+            />
+          <label>Product Category :</label>
+          <select
+            placeholder='Select Product Category'
+            required
+            name='category'
+            value={product.category}
+            onChange={(e)=>handleInputChange(e)}
+          >
+            <option value="" disabled>
+                -- Choose Product Category --
+              </option>
+              {categories.map((cat) => {
+                return (
+                  <option key={cat.id} value={cat.name}>
+                    {cat.name}
+                  </option>
+                );
+              })}
+          </select>  
+
         </form>
       </Card>
     </div>
