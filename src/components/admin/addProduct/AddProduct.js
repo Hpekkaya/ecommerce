@@ -101,7 +101,23 @@ const AddProduct = () => {
                 );
               })}
           </select>  
-
+          <label>Product Company/Brand</label>
+            <input
+              type="text"
+              placeholder="Product Brand"
+              required
+              name="brand"
+              value={product.brand}
+              onChange={(e) => handleInputChange(e)}
+            />
+            <label>Product Description</label>
+            <textarea
+              name="desc"
+              value={product.desc}
+              onChange={(e) => handleInputChange(e)}
+              cols="30"
+              rows="10"
+            ></textarea>
         </form>
       </Card>
     </div>
