@@ -87,7 +87,10 @@ const AddProduct = () => {
       });
       setIsLoading(false);
       toast.success("Product is Uploaded Succesfully")
-      
+      setUploadProgress(0)
+      setProduct({...initialState})
+      toast.success("Product uploaded successfully");
+      navigate("/admin/all-products")
       
     } catch (error) {
       setIsLoading(false);
