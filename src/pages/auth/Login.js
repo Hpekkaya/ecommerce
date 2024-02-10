@@ -84,6 +84,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button  type="submit" className="--btn --btn-primary --btn-block">Login</button>
+            {/* {console.log()} */}
             <div className={styles.links}>
               <Link to="/reset">Reset Password</Link>
             </div>
