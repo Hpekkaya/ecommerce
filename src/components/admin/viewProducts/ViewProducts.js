@@ -1,4 +1,4 @@
-//// admin panelindeki allproducts componenti
+// admin panelindeki allproducts componenti
 import React from 'react'
 
 const ViewProducts = () => {
