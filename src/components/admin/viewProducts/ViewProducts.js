@@ -8,6 +8,7 @@ import styles from "./ViewProducts.module.scss"
 import { Link } from 'react-router-dom'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { deleteObject, ref } from 'firebase/storage'
+import Notiflix from 'notiflix'
 
 
 const ViewProducts = () => {
@@ -122,7 +123,7 @@ const ViewProducts = () => {
                       <Link to={`/admin/add-product/${id}`}>
                       <FaEdit size={20} color="green"/>
                       </Link>&nbsp;
-                      <FaTrashAlt size={18} color="red" />
+                      <FaTrashAlt size={18} color="red" onClick={()=>deleteProduct(id,imageURL)}/>
                     </td>
                   </tr>
                 )
