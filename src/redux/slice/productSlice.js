@@ -16,7 +16,9 @@ const productSlice = createSlice({
   }
 });
 
+// To get from other sections
 export const {STORE_PRODUCTS} = productSlice.actions
+
 
 export const selectProducts = (state) => state.product.products
 
