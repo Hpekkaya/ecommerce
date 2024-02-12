@@ -1,4 +1,4 @@
-// admin sayfası
+//// admin sayfası
 import React from 'react'
 import styles from "./Admin.module.scss"
 import Navbar from '../../components/admin/navbar/Navbar'
@@ -20,7 +20,7 @@ const Admin = () => {
         <Routes>
           <Route path='home' element={<Home/>}/>
           <Route path="all-products" element={<ViewProducts/>}/>
-          <Route path='add-product' element={<AddProduct/>}/>
+          <Route path='add-product/:id' element={<AddProduct/>}/>
           <Route path='orders' element={<Orders/>}/>
           <Route path='order-details' element={<OrderDetails/>}/>
         </Routes>
