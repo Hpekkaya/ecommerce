@@ -1,50 +1,59 @@
-//// admin panelindeki allproducts componenti
-import React from 'react'
-import {toast} from "react-toastify"
-import {collection, deleteDoc, doc, onSnapshot, orderBy, query} from "firebase/firestore"
+// The page we seen all the products
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
+import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { db, storage } from '../../../firebase/config'
-import Loader from "../../loader/Loader"
+import Loader from '../../loader/Loader'
 import styles from "./ViewProducts.module.scss"
 import { Link } from 'react-router-dom'
-import {FaEdit,FaTrashAlt} from "react-icons/fa"
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { deleteObject, ref } from 'firebase/storage'
 import Notiflix from 'notiflix'
-import {useDispatch} from "react-redux"
+import { useDispatch } from 'react-redux'
 import { STORE_PRODUCTS } from '../../../redux/slice/productSlice'
+
 
 const ViewProducts = () => {
 
-  const [products,setProducts] = React.useState([])
-  const [isLoading,setIsLoading] = React.useState([])
+  const[products, setProducts] = React.useState([])     //  useState([])
+  const[isLoading,setIsLoading] = React.useState([])     // 
 
+  // to run reducer
   const dispatch = useDispatch();
 
-  React.useEffect(()=>{
+  // In order to get data from DB automatically when the page open
+  useEffect(()=>{
     getProducts()
-  },[])
+  })
 
-  const getProducts = () => {
+  // function get the products from DataBase 
+  const getProducts = ()=> {
     setIsLoading(true)
     try{
-      //belirli bir koleksiyonu almak için
-      const productsRef = collection(db, "products")
-      //seçtiğimiz koleksiyonu sırala
-      const q = query(productsRef, orderBy("createdAt","desc"))
-      //gerçek zamanlı dinleme
-      onSnapshot(q,(snapshot)=>{
+      // In order to get specific products
+      const productsRef = collection(db, "products" )
+      // order the products selected
+      const q =query(productsRef, orderBy("createdAt", "desc"))
+      // Listen in real-time when the data updated (Get realtime updates with Cloud)
+      onSnapshot(q, (snapshot)=>{
         // console.log(snapshot)
-        // console.log(snapshot.docs[0].data())
-        const allProducts = snapshot.docs.map((doc)=> {
-          return ({
+        // console.log(snapshot.docs[0].data)
+
+        // In order to get all products then release from the products 1.Get Id 
+        const allProducts = snapshot.docs.map((doc)=>{
+          return({
           id:doc.id,
           ...doc.data()
+
         })})
+        // List all products here
         // console.log(allProducts)
         setIsLoading(false)
         setProducts(allProducts)
-        dispatch(STORE_PRODUCTS({products:allProducts}
-        ))
+        dispatch(STORE_PRODUCTS({products:allProducts}))
       })
+
+
     }
     catch(error){
       setIsLoading(false)
@@ -58,12 +67,8 @@ const ViewProducts = () => {
       'You are about to delete this product?',
       'Delete',
       'Cancel',
-      function okCb(){
-        deleteProduct(id,imageURL)
-      },
-      function cancelCb(){
-
-      },
+      function okCb(){ deleteProduct(id,imageURL) },
+      function cancelCb(){ },
       {
         width:"320px",
         borderRadius:"3px",
@@ -90,56 +95,48 @@ const ViewProducts = () => {
 
   return (
     <>
-    {isLoading && <Loader/>}
-    <div className={styles.table}>
-      <h2>All Products</h2>
-      {products.length === 0 ? (
-        <p>No product found</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>s/n</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product,index)=>{
-              const {id,name,price,imageURL,category} = product
-              return (
-                <tr key={id}>
-                  <td>
-                    {index + 1}
-                  </td>
-                  <td>
-                    <img src={imageURL} alt={name} style={{width:"100px"}}/>
-                  </td>
-                  <td>
-                    {name}
-                  </td>
-                  <td>
-                    {category}
-                  </td>
-                  <td>
-                    {`$${price}`}
-                  </td>
-                  <td>
-                    <Link to={`/admin/add-product/${id}`}>
+      {isLoading && <Loader/>}    
+      <div className={styles.table}>
+         <h2>All Products</h2>
+         {products.length === 0 ? (<p>No product found</p>) : (
+          <table>
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Image</th>
+                <th>Name </th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Products listed in order */}
+              {products.map((product, index)=>{
+                const{id, name, price, imageURL, category} = product
+                return(
+                  <tr key={id}>
+                    <td>{index+1}</td>
+                    <td><img src={imageURL} alt={name} style={{width:"100px"}}/></td>
+                    <td>{name}</td>
+                    <td>{category}</td>
+                    <td> {`$${price}`}</td>
+                    <td>
+                      <Link to={`/admin/add-product/${id}`}>
                       <FaEdit size={20} color="green"/>
-                    </Link>&nbsp;
-                    <FaTrashAlt size={18} color="red" onClick={()=>confirmDelete(id,imageURL)}/>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      )}
-    </div>
+                      </Link>&nbsp;
+                      <FaTrashAlt size={18} color="red" onClick={()=>confirmDelete(id,imageURL)}/>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+         )
+
+         }
+
+      </div>
     </>
   )
 }
