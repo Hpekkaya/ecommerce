@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import Loader from '../../loader/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
+import e from 'cors';
 
 
 const categories = [
@@ -111,6 +112,21 @@ const AddProduct = () => {
     }
   };
 
+  // Edit the product in admin panel
+  const editProduct = () => {
+    e.preventDefault();
+    setIsLoading(true)
+    try {
+      setIsLoading(false)
+      toast.success("Product Edited successfully");
+      navigate("/admin/all-products")
+    } 
+    catch (error) {
+      setIsLoading(false);
+      toast.error(error.message)
+    }
+  };
+
   return (
     <>
       {isLoading && <Loader/>}
@@ -119,7 +135,7 @@ const AddProduct = () => {
       {/* Return the h2 according to Add/Edit */}
       <h2>{detectForm("Add New Product","Edit Product")}</h2>
       <Card cardClass={styles.card}>
-        <form onSubmit={addProduct}>
+        <form onSubmit={detectForm(addProduct,editProduct)}>
           <label>Product name:</label>
           <input
             type="text"
