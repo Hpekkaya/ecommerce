@@ -9,6 +9,8 @@ import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import Loader from '../../loader/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
 import e from 'cors';
+import { useSelector } from 'react-redux';
+import { selectProducts } from '../../../redux/slice/productSlice';
 
 
 const categories = [
@@ -23,6 +25,12 @@ const AddProduct = () => {
 
   //  to receive ID info in Link
   const {id} = useParams()
+
+  // A hook to access the redux store's state (hooks all the data and use the we need)
+  const products = useSelector(selectProducts)
+
+  // A structure filters data within products  
+  const productEdit = products.find((item) => item.id === id)
 
   const initialState = {
     name: "",
