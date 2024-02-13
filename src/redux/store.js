@@ -10,8 +10,14 @@ const rootReducer = combineReducers({
     product :productReducer
 })
 
+// Excludes the serializable state check middleware
 const store = configureStore({
-    reducer:rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+
 })
 
 export default store
