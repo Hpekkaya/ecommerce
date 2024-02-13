@@ -5,7 +5,7 @@ import Card from "../../card/Card";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
-import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { Timestamp, addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import Loader from '../../loader/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
 import e from 'cors';
@@ -138,9 +138,18 @@ const AddProduct = () => {
       deleteObject(storageRef)
     }
     
-    // If the document does not exist, it will be created. 
-    // If the document does exist, its contents will be overwritten with the newly provided data
+    // written with the newly provided data to dataBase
     try {
+      setDoc(doc(db,"products",id),{
+        name:product.name,
+        imageURL:product.imageURL,
+        price:Number(product.price),
+        category:product.category,
+        brand:product.brand,
+        desc:product.desc,
+        createdAt: productEdit.createdAt,
+        editedAt: Timestamp.now().toDate()
+      })
       setIsLoading(false)
       toast.success("Product Edited successfully");
       navigate("/admin/all-products")
