@@ -10,8 +10,8 @@ const Loader = () => {
     <div className={styles.wrapper}>
       <div className={styles.loader}>
         <img src={loaderImg} alt='Loading...'/>
-      </div>, document.getElementById("loader")      
-    </div>
+      </div>     
+    </div>, document.getElementById("loader") 
   )
 }
 

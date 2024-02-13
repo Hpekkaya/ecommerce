@@ -15,8 +15,8 @@ import { STORE_PRODUCTS } from '../../../redux/slice/productSlice'
 
 const ViewProducts = () => {
 
-  const[products, setProducts] = React.useState([])     //  useState([])
-  const[isLoading,setIsLoading] = React.useState([])     // 
+  const[products, setProducts] = useState([])     //  React.useState([])
+  const[isLoading,setIsLoading] = useState([])      // React.useState([])
 
   // to run reducer
   const dispatch = useDispatch();

@@ -7,7 +7,7 @@ import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import Loader from '../../loader/Loader';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const categories = [
@@ -19,6 +19,10 @@ const categories = [
 
 // 
 const AddProduct = () => {
+
+  //  to receive ID info in Link
+  const {id} = useParams()
+
   const initialState = {
     name: "",
     imageURL: "",
@@ -32,6 +36,15 @@ const AddProduct = () => {
   });
   
   const navigate = useNavigate()
+
+  // to detect form controls id/ADD 
+  function detectForm(id, f1, f2){
+    if(id === "ADD"){
+      return f1
+    } else {
+      return f2
+    }
+  }
 
 
   const [uploadProgress, setUploadProgress] = useState(0)

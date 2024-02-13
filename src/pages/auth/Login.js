@@ -17,7 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
-
+                   
   const navigate = useNavigate();
 
   const loginUser = (e) => {
@@ -27,7 +27,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        // const user = userCredential.user;
         setIsLoading(false);
         toast.success("Login Successfully...");
         navigate("/");
