@@ -38,7 +38,7 @@ const AddProduct = () => {
   const navigate = useNavigate()
 
   // to detect form controls id/ADD 
-  function detectForm(id, f1, f2){
+  function detectForm(f1, f2){
     if(id === "ADD"){
       return f1
     } else {
@@ -115,7 +115,9 @@ const AddProduct = () => {
     <>
       {isLoading && <Loader/>}
       <div className={styles.product}>
-      <h2>Add New Product</h2>
+     
+      {/* Return the h2 according to Add/Edit */}
+      <h2>{detectForm("Add New Product","Edit Product")}</h2>
       <Card cardClass={styles.card}>
         <form onSubmit={addProduct}>
           <label>Product name:</label>
@@ -207,7 +209,7 @@ const AddProduct = () => {
             cols="30"
             rows="10"
           ></textarea>
-          <button className="--btn --btn-primary">Save Product</button>
+          <button className="--btn --btn-primary">{detectForm("Save Product", "Edit Product")}</button>
         </form>
       </Card>
     </div>
