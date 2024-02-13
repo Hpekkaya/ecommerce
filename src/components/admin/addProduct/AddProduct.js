@@ -40,9 +40,14 @@ const AddProduct = () => {
     brand: "",
     desc: "",
   }
-  const [product, setProduct] = useState({
-    ...initialState
-  });
+  
+  // Depending on the situation, it will work as either ...initialState or productEdit.
+  const [product, setProduct] = useState(
+    ()=>{
+      const newState = detectForm({...initialState},productEdit)
+      return newState
+    }
+  );
   
   const navigate = useNavigate()
 
@@ -124,6 +129,17 @@ const AddProduct = () => {
   const editProduct = () => {
     e.preventDefault();
     setIsLoading(true)
+
+
+    // Compare the existing ImageURL with the edited ImageURL
+    // If it is not equal, it will delete the existing one before updating.
+    if(product.imageURL !== productEdit.imageURL){
+      const storageRef = ref(storage,productEdit.imageURL)
+      deleteObject(storageRef)
+    }
+    
+    // If the document does not exist, it will be created. 
+    // If the document does exist, its contents will be overwritten with the newly provided data
     try {
       setIsLoading(false)
       toast.success("Product Edited successfully");

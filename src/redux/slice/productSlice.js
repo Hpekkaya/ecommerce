@@ -9,6 +9,7 @@ const productSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
+    // Hooks the data from DataBase and circles in Redux to use when we need
     STORE_PRODUCTS(state,action) {
       // console.log(action.payload)
       state.products = action.payload.products
