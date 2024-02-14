@@ -26,7 +26,7 @@ const ViewProducts = () => {
   const products = useSelector(selectProducts)
 
 
-  // to run reducer
+  // to run reducer  --A hook to access the redux dispatch function.
   const dispatch = useDispatch();
 
   // In order to get data from DB automatically when the page open
@@ -35,8 +35,8 @@ const ViewProducts = () => {
   //   getProducts()
   // })
 
-  // function get the products from DataBase 
-  // 2. After useEffect function (75) below we do not need it anymore
+  //  function get the products from DataBase 
+  //  2. After useEffect function (75) below we do not need it anymore
   // const getProducts = ()=> {
   //   setIsLoading(true)
   //   try{
