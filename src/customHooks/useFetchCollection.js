@@ -2,7 +2,7 @@
 // This hook will be used to pull these collections in bulk.
 
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from '../firebase/config'
 import { toast } from 'react-toastify'
 
@@ -33,12 +33,12 @@ const useFetchCollection = (collectionName) => {
       toast.error(error.message)      
     }
   }
-
-  return (
-    <div>
-      
-    </div>
-  )
+  // Making the content (getCollection function) that will run once every time we call it
+  useEffect(()=>{
+    getCollection()
+  },[])
+  
+  return {data,isLoading}
 }
 
 export default useFetchCollection

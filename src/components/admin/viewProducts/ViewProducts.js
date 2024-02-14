@@ -49,7 +49,9 @@ const ViewProducts = () => {
         // List all products here
         // console.log(allProducts)
         setIsLoading(false)
+        // writes all products to State
         setProducts(allProducts)
+        // then writes all products to the Redux
         dispatch(STORE_PRODUCTS({products:allProducts}))
       })
 
