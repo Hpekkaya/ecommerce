@@ -1,4 +1,6 @@
-//// google firebase içerisinde 3 koleksiyon tutulacak: products, orders, reviews. Bu koleksiyonları toplu halde çekebilmek için bu hook kullanılacak
+// 3 collections will be kept in Google Firebase: products, orders, reviews. 
+// This hook will be used to pull these collections in bulk.
+
 import React from 'react'
 
 const useFetchCollection = () => {
