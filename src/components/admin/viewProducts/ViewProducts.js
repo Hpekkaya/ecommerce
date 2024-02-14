@@ -11,12 +11,16 @@ import { deleteObject, ref } from 'firebase/storage'
 import Notiflix from 'notiflix'
 import { useDispatch } from 'react-redux'
 import { STORE_PRODUCTS } from '../../../redux/slice/productSlice'
+import useFetchCollection from '../../../customHooks/useFetchCollection'
 
 
 const ViewProducts = () => {
 
-  const[products, setProducts] = useState([])     //  React.useState([])
-  const[isLoading,setIsLoading] = useState([])      // React.useState([])
+  // const[products, setProducts] = useState([])     //  React.useState([])
+  // const[isLoading,setIsLoading] = useState([])      // React.useState([])
+
+  // Alternatives to above two line
+  const { data , isLoading } = useFetchCollection("products") 
 
   // to run reducer
   const dispatch = useDispatch();
