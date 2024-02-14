@@ -21,7 +21,7 @@ const Product = () => {
   // dispatch will store the data to redux
   useEffect(()=>{
     dispatch(STORE_PRODUCTS({
-      products:data
+      products:data    //  sends data info to products
     }))
   },[dispatch,data])
 
