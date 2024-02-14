@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import styles from "./AddProduct.module.scss"
 import Card from "../../card/Card";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from '../../../firebase/config';
 import { toast } from 'react-toastify';
 import { Timestamp, addDoc, collection, doc, setDoc } from 'firebase/firestore';
@@ -64,13 +64,14 @@ const AddProduct = () => {
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
 
-   // Formun içindeki Dosyaları anlık olarak alıp UseState içindeki değerlere kaydededen
+   // It instantly takes the data in the form and saves them to the values in UseState.
    //  Bu state alıp veri tabanına kaydedeceğiz
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-  };
-
+   const handleInputChange = (e) => {
+     const { name, value } = e.target;
+     setProduct({ ...product, [name]: value });
+    };
+    
+  // It instantly takes the images in the form and saves them to the values in UseState.
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     // console.log(file)
@@ -103,6 +104,7 @@ const AddProduct = () => {
     // console.log(product);
     setIsLoading(true);
     try {
+      // written with the newly provided data to dataBase
       addDoc(collection(db, "products"), {
         name: product.name,
         imageURL: product.imageURL,
@@ -138,7 +140,7 @@ const AddProduct = () => {
       deleteObject(storageRef)
     }
     
-    // written with the newly provided data to dataBase
+    // written with the newly edited data to dataBase
     try {
       setDoc(doc(db,"products",id),{
         name:product.name,

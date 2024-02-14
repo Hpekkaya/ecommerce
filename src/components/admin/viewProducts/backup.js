@@ -9,12 +9,17 @@ import { Link } from 'react-router-dom'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { deleteObject, ref } from 'firebase/storage'
 import Notiflix from 'notiflix'
+import { useDispatch } from 'react-redux'
+import { STORE_PRODUCTS } from '../../../redux/slice/productSlice'
 
 
 const ViewProducts = () => {
 
-  const[products, setProducts] = React.useState([])     //  useState([])
-  const[isLoading,setIsLoading] = React.useState([])     // 
+  const[products, setProducts] = useState([])     //  React.useState([])
+  const[isLoading,setIsLoading] = useState([])      // React.useState([])
+
+  // to run reducer
+  const dispatch = useDispatch();
 
   // In order to get data from DB automatically when the page open
   useEffect(()=>{
@@ -45,6 +50,7 @@ const ViewProducts = () => {
         // console.log(allProducts)
         setIsLoading(false)
         setProducts(allProducts)
+        dispatch(STORE_PRODUCTS({products:allProducts}))
       })
 
 

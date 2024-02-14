@@ -1,4 +1,4 @@
-//// admin sayfası
+// admin sayfası
 import React from 'react'
 import styles from "./Admin.module.scss"
 import Navbar from '../../components/admin/navbar/Navbar'
