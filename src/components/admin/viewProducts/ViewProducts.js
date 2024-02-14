@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { deleteObject, ref } from 'firebase/storage'
 import Notiflix from 'notiflix'
-import { useDispatch } from 'react-redux'
-import { STORE_PRODUCTS } from '../../../redux/slice/productSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { STORE_PRODUCTS, selectProducts } from '../../../redux/slice/productSlice'
 import useFetchCollection from '../../../customHooks/useFetchCollection'
 
 
@@ -22,50 +22,61 @@ const ViewProducts = () => {
   // Alternatives to above two line
   const { data , isLoading } = useFetchCollection("products") 
 
+  // A hook (useSelector) to access the redux store's state. This hook takes a selector function as an argument.  
+  const products = useSelector(selectProducts)
+
+
   // to run reducer
   const dispatch = useDispatch();
 
   // In order to get data from DB automatically when the page open
-  useEffect(()=>{
-    getProducts()
-  })
+  // 2. After useEffect function (75) below we do not need it anymore
+  // useEffect(()=>{
+  //   getProducts()
+  // })
 
   // function get the products from DataBase 
-  const getProducts = ()=> {
-    setIsLoading(true)
-    try{
-      // In order to get specific products
-      const productsRef = collection(db, "products" )
-      // order the products selected
-      const q =query(productsRef, orderBy("createdAt", "desc"))
-      // Listen in real-time when the data updated (Get realtime updates with Cloud)
-      onSnapshot(q, (snapshot)=>{
-        // console.log(snapshot)
-        // console.log(snapshot.docs[0].data)
+  // 2. After useEffect function (75) below we do not need it anymore
+  // const getProducts = ()=> {
+  //   setIsLoading(true)
+  //   try{
+  //     // In order to get specific products
+  //     const productsRef = collection(db, "products" )
+  //     // order the products selected
+  //     const q =query(productsRef, orderBy("createdAt", "desc"))
+  //     // Listen in real-time when the data updated (Get realtime updates with Cloud)
+  //     onSnapshot(q, (snapshot)=>{
+  //       // console.log(snapshot)
+  //       // console.log(snapshot.docs[0].data)
 
-        // In order to get all products then release from the products 1.Get Id 
-        const allProducts = snapshot.docs.map((doc)=>{
-          return({
-          id:doc.id,
-          ...doc.data()
+  //       // In order to get all products then release from the products 1.Get Id 
+  //       const allProducts = snapshot.docs.map((doc)=>{
+  //         return({
+  //         id:doc.id,
+  //         ...doc.data()
 
-        })})
-        // List all products here
-        // console.log(allProducts)
-        setIsLoading(false)
-        // writes all products to State
-        setProducts(allProducts)
-        // then writes all products to the Redux
-        dispatch(STORE_PRODUCTS({products:allProducts}))
-      })
+  //       })})
+  //       // List all products here
+  //       // console.log(allProducts)
+  //       setIsLoading(false)
+  //       // writes all products to State
+  //       setProducts(allProducts)
+  //       // then writes all products to the Redux
+  //       dispatch(STORE_PRODUCTS({products:allProducts}))
+  //     })
+  //   }
+  //   catch(error){
+  //     setIsLoading(false)
+  //     toast.error(error.message)
+  //   }
+  // }
 
-
-    }
-    catch(error){
-      setIsLoading(false)
-      toast.error(error.message)
-    }
-  }
+  // dispatch will store the data to redux
+  useEffect(()=>{
+    dispatch(STORE_PRODUCTS({
+      products: data
+    }))
+  },[dispatch,data]) // It will listen to dispatch and data --- and run it again as the data changes.
 
   const confirmDelete = (id,imageURL) => {
     Notiflix.Confirm.show(
