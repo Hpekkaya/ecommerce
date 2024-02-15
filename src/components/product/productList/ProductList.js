@@ -6,8 +6,9 @@ import styles from "./ProductList.module.scss";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import Search from '../../search/Search';
+import ProductItem from '../productItem/ProductItem';
 
-const ProductList = () => {
+const ProductList = ({products}) => {
 
   const [grid, setGrid] = useState(true);
   const [search,setSearch] = useState("")
@@ -20,7 +21,8 @@ const ProductList = () => {
           <FaListAlt size={24} color="#0066d4" onClick={() => setGrid(false)} />
           <p><b>10</b> Products found</p>
         </div>
-        <div>
+      
+        <div>  {/* Real-time changes to the value and onChange sections will occur with Search.js. */}
           <p> <Search value={search} onChange={(e)=>setSearch(e.target.value)}/></p>
         </div>
         <div className={styles.sort}>
@@ -35,6 +37,25 @@ const ProductList = () => {
         </div>
 
       </div>
+      {/* Controls the grid system */}
+      <div className={grid ? `${styles.grid}` : `${styles.list}`}>
+        
+        {products.length === 0 ? (
+          <p>No product found</p>
+        ) : 
+        {/* We will list the products here */}
+          ( <>
+          {products.map((product)=>{
+            return (
+              <div key={product.id}>
+                <ProductItem {...product} grid={grid} product={product}/>
+              </div>
+            )
+          })}
+          </>
+        )}
+      </div>
+
     </div>
   )
 }
