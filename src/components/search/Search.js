@@ -1,4 +1,5 @@
-//// home sayfasındali productlist de ve admin panelindeki allproduct componentinde kullanılan arama komponenti
+// Search component used in the product list on the home page and in all product components in the admin panel
+
 import React from 'react'
 
 const Search = () => {
