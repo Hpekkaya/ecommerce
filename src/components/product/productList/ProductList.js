@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import styles from "./ProductList.module.scss";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
+import Search from '../../search/Search';
 
 const ProductList = () => {
 
@@ -19,7 +20,9 @@ const ProductList = () => {
           <FaListAlt size={24} color="#0066d4" onClick={() => setGrid(false)} />
           <p><b>10</b> Products found</p>
         </div>
-        
+        <div>
+          <p> <Search value={search} onChange={(e)=>setSearch(e.target.value)}/></p>
+        </div>
         <div className={styles.sort}>
           <label>Sort by:</label>
           <select name="category">
