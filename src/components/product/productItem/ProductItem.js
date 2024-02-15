@@ -1,9 +1,11 @@
-//// home sayfasındaki product card ları
+// Product cards on the home page
 import React from 'react'
 
-const ProductItem = () => {
+const ProductItem = ({product,grid,id,name,price,desc,imageURL}) => {
   return (
-    <div>ProductItem</div>
+    <div>
+      
+    </div>
   )
 }
 
