@@ -29,6 +29,7 @@ const ProductItem = ({product,grid,id,name,price,desc,imageURL}) => {
             <p>{`$${price}`}</p>
             <h4>{shortenText(name, 18)}</h4>
           </div>
+          {/* Displaying text depending on the list view (not a grid view) */}
           {!grid && <p>{shortenText(desc, 200)}</p>}
           <button className="--btn --btn-danger">Add To Cart</button>
         </div>
