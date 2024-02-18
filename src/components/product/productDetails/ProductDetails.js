@@ -14,7 +14,7 @@ const ProductDetails = () => {
   const [product, setProduct ] = useState(null)
 
   // 
-  const document = useFetchDocument("product", id)
+  const document = useFetchDocument("products", id)
 
   useEffect(()=>{
     setProduct(document)
