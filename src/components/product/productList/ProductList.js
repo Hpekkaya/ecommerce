@@ -1,17 +1,26 @@
 // It is the place where all product cards are displayed, along with the section where you can view, search and sort the products on the home page. 
 // Product cards will be processed in the component named (productitem).
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./ProductList.module.scss";
 import { BsFillGridFill } from "react-icons/bs";
 import { FaListAlt } from "react-icons/fa";
 import Search from '../../search/Search';
 import ProductItem from '../productItem/ProductItem';
+import { useDispatch } from 'react-redux';
+import { FILTER_BY_SEARCH, SORT_PRODUCTS, selectFilteredProducts } from "../../../redux/slice/filterSlice";
 
 const ProductList = ({products}) => {
 
   const [grid, setGrid] = useState(true);
   const [search,setSearch] = useState("")
+
+  const dispatch = useDispatch();
+
+  // To send when data inside(products and search info) filtered data
+  useEffect(()=>{
+    dispatch(FILTER_BY_SEARCH({products,search}))
+  },[dispatch,products,search])
 
   return (
     <div className={styles["product-list"]} id="products">
