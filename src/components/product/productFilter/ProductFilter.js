@@ -1,9 +1,12 @@
 // home kısmında ürün filtreleme yapılan sol yer
 import React from 'react'
+import styles from "./ProductFilter.module.scss"
 
 const ProductFilter = () => {
   return (
-    <div>ProductFilter</div>
+    <div className={styles.filter}>
+      
+    </div>
   )
 }
 
