@@ -1,4 +1,6 @@
-//// tüm filtreleme ve sıralama işlemlerinin yürütüldüğü redux: arama filtresi, kategori filtresi, marka filtresi, fiyat filtresi
+// Redux, where all filtering and sorting operations are carried out: 
+// search filter, category filter, brand filter, price filter
+
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
