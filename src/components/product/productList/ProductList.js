@@ -23,7 +23,7 @@ const ProductList = ({products}) => {
         </div>
       
         <div>  {/* Real-time changes to the value and onChange sections will occur with Search.js. */}
-          <p> <Search value={search} onChange={(e)=>setSearch(e.target.value)}/></p>
+         <Search value={search} onChange={(e)=>setSearch(e.target.value)}/>
         </div>
         <div className={styles.sort}>
           <label>Sort by:</label>
@@ -42,10 +42,11 @@ const ProductList = ({products}) => {
         
         {products.length === 0 ? (
           <p>No product found</p>
-        ) : 
-        {/* We will list the products here */}
-          ( <>
+        ) : ( 
+          <>
+          
           {products.map((product)=>{
+            // console.log(product)
             return (
               <div key={product.id}>
                 <ProductItem {...product} grid={grid} product={product}/>

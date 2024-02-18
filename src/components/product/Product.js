@@ -15,6 +15,7 @@ const Product = () => {
 
   // hook data from Redux- (A hook to access the redux store's state.)
   const products = useSelector(selectProducts)
+  // console.log(products)
 
   // A hook to access the redux   store in redux
   const dispatch = useDispatch()
